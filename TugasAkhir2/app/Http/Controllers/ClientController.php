@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Model\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
@@ -14,7 +16,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $client = Client::all();
+        return view('admin.client.index-client', compact('client'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.client.create-client');
     }
 
     /**
@@ -33,9 +36,13 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['gambar'] = $request->file('gambar')->store('assets/gallery', 'public');
+
+        Client::create($data);
+        return redirect('/client')->with('status', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -55,9 +62,10 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit($id)
     {
-        //
+        $client = Client::find($id);
+        return view ('admin.client.edit-client', compact('client'));
     }
 
     /**
@@ -67,9 +75,16 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(ClientRequest $request, Client $client)
     {
-        //
+        $dataId = $client->find($client->id);
+        $data = $request->all();
+        if($request->gambar){
+            Storage::delete('public/'.$dataId->gambar);
+            $data['gambar'] = $request->file('gambar')->store('assets/gallery','public');
+        }
+        $dataId->update($data);
+        return redirect('/client')->with('status', 'Data berhasil di update');
     }
 
     /**
@@ -78,8 +93,9 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy($client)
     {
-        //
+        $client = Client::findorFail($client)->delete();
+        return redirect('/client')->with('status', 'Data berhasil di hapus');
     }
 }

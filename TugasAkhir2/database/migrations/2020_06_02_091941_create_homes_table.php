@@ -15,6 +15,12 @@ class CreateHomesTable extends Migration
     {
         Schema::create('homes', function (Blueprint $table) {
             $table->id();
+            $table->text('title');
+            $table->integer('fontsize_title');
+            $table->text('subtitle');
+            $table->integer('fontsize_subtitle');
+            $table->text('visi');
+            $table->text('misi');
             $table->timestamps();
         });
     }

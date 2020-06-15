@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Home;
+use App\Model\Home;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        $home = Home::all();
+        return view('admin.home.index-home', compact('home'));
     }
 
     /**
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.home.create-home');
     }
 
     /**
@@ -35,7 +36,17 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'title' => 'required',
+            'fontsize_title' => 'required',
+            'subtitle' => 'required',
+            'fontsize_subtitle' => 'required',
+            'visi' => 'required',
+            'misi' => 'required'
+        ]);
+
+        Home::create($validateData);
+        return redirect('/home')->with('status', "Data berhasil ditambahkan");
     }
 
     /**
@@ -55,9 +66,10 @@ class HomeController extends Controller
      * @param  \App\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function edit(Home $home)
+    public function edit($id)
     {
-        //
+        $home = Home::find($id);
+        return view ('admin.home.edit-home', compact('home'));
     }
 
     /**
@@ -69,7 +81,15 @@ class HomeController extends Controller
      */
     public function update(Request $request, Home $home)
     {
-        //
+        Home::where('id', $home->id)->update([
+            "title" => $request->title,
+            "fontsize_title" => $request->fontsize_title,
+            "subtitle" => $request->subtitle,
+            "fontsize_subtitle" => $request->fontsize_subtitle,
+            "visi" => $request->visi,
+            "misi" => $request->misi       
+        ]);
+        return redirect('/home')->with('status', 'Data berhasil di update');
     }
 
     /**
@@ -78,8 +98,9 @@ class HomeController extends Controller
      * @param  \App\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Home $home)
+    public function destroy($home)
     {
-        //
+        $home = Home::findorFail($home)->delete();
+        return redirect('/home')->with('status', 'Data berhasil di hapus');
     }
 }

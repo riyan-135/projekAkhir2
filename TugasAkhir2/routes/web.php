@@ -20,3 +20,15 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('layout.master');
 });
+
+Route::resource('home', 'HomeController');
+
+Route::get('/home-view', function(){
+    return view('user.home');
+});
+
+Route::resource('client', 'ClientController');
+
+Route::get('/client-view', function(){
+    return view('user.client');
+});

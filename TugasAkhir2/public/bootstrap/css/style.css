@@ -1,0 +1,25 @@
+#subhead {
+    height: 700px;
+    width: 100%;
+    background-color: #247719;
+}
+
+#text1 {
+    padding-top: 300px;
+}
+
+#text2 {
+    padding-top: 150px;
+    margin-bottom: 100px;
+}
+
+#gambar {
+    height: 150px;
+    width: 200px;
+}
+
+/* #subfoot {
+    height: 700px;
+    width: 100%;
+    background-color: #24a319;
+} */
