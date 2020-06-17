@@ -21,7 +21,10 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     @include('.layout.header')
     @include('.layout.sidebar')
+    <section class="content-wrapper">
         @yield('content')
+    </section>
+
     @include('.layout.footer')
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
@@ -48,6 +51,24 @@
 <script src="{{ asset('bootstrap/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('bootstrap/popper.min.js') }}"></script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+    var dt = $('#example').DataTable( {
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr'
+            }
+        },
+        columnDefs: [ {
+            className: 'control',
+            orderable: false,
+            targets:   0
+        } ],
+        order: [ 1, 'asc' ]
+    } );
+} );
+</script>
 
 </body>
 </html>

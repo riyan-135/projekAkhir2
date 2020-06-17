@@ -1,5 +1,5 @@
 
-    
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -30,10 +30,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/admin/produk" class="nav-link">
               <i class="fab fa-product-hunt"></i>
               <p>
                 Product
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/gallery" class="nav-link">
+              <i class="fab fa-product-hunt"></i>
+              <p>
+                Gallery
               </p>
             </a>
           </li>
@@ -58,5 +66,5 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-</aside>    
+</aside>
 

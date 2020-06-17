@@ -15,7 +15,11 @@ class CreateProduksTable extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
+            $table->string('produk');
+            $table->longtext('deskripsi');
+            $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

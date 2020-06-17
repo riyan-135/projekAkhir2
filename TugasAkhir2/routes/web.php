@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('layout.master');
 });
+Route::prefix('admin')->group(function(){
+    Route::resource('produk', 'ProdukController');
+    Route::resource('gallery','GalleryController');
+});
+
+Route::get('/produk','Tampil_produkController@index')->name('produk');
+Route::get('/gallery','Tampil_galleryController@index')->name('gallery');
+Route::get('/detail/{id}','DetailController@index')->name('detail');

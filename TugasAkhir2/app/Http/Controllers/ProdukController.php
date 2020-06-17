@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Produk;
 use Illuminate\Http\Request;
+use App\Http\Requests\productRequest;
+use Illuminate\Support\Str;
 
 class ProdukController extends Controller
 {
@@ -14,7 +16,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        //
+        $produk = Produk::all();
+        return view('produk.index', compact('produk'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        return view('produk.create');
     }
 
     /**
@@ -35,7 +38,15 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+
+            'produk' => 'required',
+            'deskripsi' => 'required',
+            'type' => 'required'
+        ]);
+
+        $produk = Produk::create($validatedData);
+        return redirect('/produk')->with('status', 'Data Berhasil Di Tambahkan');
     }
 
     /**
@@ -57,7 +68,7 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        //
+        return view('produk.edit', compact('produk'));
     }
 
     /**
@@ -69,7 +80,16 @@ class ProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {
-        //
+        Produk::where('id', $produk->id)
+        ->update([
+
+            'produk' => $request->produk,
+            'deskripsi' => $request->deskripsi,
+            'type' => $request->type
+
+         ]);
+    // Bagian::where($request->all());
+    return redirect('/produk')->with('status', 'Data Berhasil Di Update');
     }
 
     /**
@@ -80,6 +100,7 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        Produk::destroy($produk->id);
+        return redirect('/produk')->with('status', 'Data Berhasil Di Hapus');
     }
 }
