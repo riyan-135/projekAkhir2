@@ -46,10 +46,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route('contact.index') }}" class="nav-link">
               <i class="fas fa-id-card"></i>
               <p>
                 Contact
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('pesan.index') }}" class="nav-link">
+        
+              <p>
+                Pesan
               </p>
             </a>
           </li>

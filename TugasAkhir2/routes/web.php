@@ -17,6 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('layout.master');
+Route::get('/HalamanContact', function () {
+    return view('user.view-contact');
 });
+
+
+Route::resource('/pesan', 'PesanController');
+Route::resource('/contact', 'ContactController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

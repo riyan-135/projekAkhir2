@@ -15,16 +15,10 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-auto">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+    <a class="ml-auto" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+      @csrf
+   </form>
 
     <!-- Right navbar links -->
   </nav>

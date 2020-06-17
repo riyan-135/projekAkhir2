@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CreateContactsTable extends Migration
+class CreatePesansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +14,14 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('pesans', function (Blueprint $table) {
             $table->id();
-            $table->string('alamat');
-            $table->bigInteger('no_hp');
+            $table->string('pesan');
+            $table->string('nama');
             $table->string('email');
-            $table->string('home');
-            $table->string('produk');
-            $table->string('client');
-            $table->string('contact');
+            $table->bigInteger('no_hp');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +32,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('pesans');
     }
 }

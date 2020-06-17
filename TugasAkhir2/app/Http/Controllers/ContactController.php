@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
+use App\Model\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->only([
+            'index', 'show', 'edit', 'update','destroy'
+        ]);
+    }
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contact = Contact::all();
+        return view('admin.contact.index', ['contact' => $contact]);
     }
 
     /**
@@ -24,7 +32,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.contact.create');
     }
 
     /**
@@ -35,7 +43,20 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            "alamat" => "required",
+            "no_hp" => "required",
+            "email" => "required",
+            "home" => "required",
+            "produk" => "required",
+            "client" => "required",
+            "contact" => "required",
+            "location" => 'required'
+
+
+        ]);
+        $contact = Contact::create($validatedData);
+        return redirect('/contact');
     }
 
     /**
@@ -44,9 +65,10 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show($contact)
     {
-        //
+        // $contact = Contact::findOrFail($contact);
+        // return view('user.contact.view-contact', ['contact' => $contact]);
     }
 
     /**
@@ -57,7 +79,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        return view('admin.contact.edit', ['contact' => $contact]);
     }
 
     /**
@@ -67,9 +89,21 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            "alamat" => "required",
+            "no_hp" => "required",
+            "email" => "required",
+            "home" => "required",
+            "produk" => "required",
+            "client" => "required",
+            "contact" => "required",
+            "location" => "required"
+        ]);
+        $contact = Contact::findOrFail($id);
+        $contact->update($request->all());
+        return redirect('/contact');
     }
 
     /**

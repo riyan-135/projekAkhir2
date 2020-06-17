@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use DB;
+use View;
+use App\Model\Contact;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $contact = Contact::all();
+        
+        View::composer('user.view-contact', function($view) use($contact){
+            $view->with('contact', $contact);
+        });
     }
 }
